@@ -1,7 +1,11 @@
 package com.example.qiita;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -27,11 +31,19 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
 
+        // レイアウト中央寄せ
+        layout.setGravity(Gravity.CENTER);
+
         setContentView(layout); // 作成した動的なlayoutインスタンスをviewメソッドに設定
 
         // テキスト設定
         textView = new TextView(this); // インスタンス作成
         textView.setText(R.string.hello); // 作成したインスタンスにstring.xmlで設定したtextを入れる
+
+        // テキストサイズ
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,30);
+        // テキストカラー
+        textView.setTextColor(Color.rgb(0x0,0x0,0x0));
 
         // xmlで書いてた詳細
         // text用のlayoutインスタンスの作成
@@ -46,10 +58,18 @@ public class MainActivity extends AppCompatActivity {
         Button button = new Button(this); // インスタンス作成
         button.setText(R.string.button); // 作成したインスタンスにstring.xmlで設定したtextを入れる
 
+        // dp単位を取得
+        float scale = getResources().getDisplayMetrics().density; // 100?
+        int buttonWidth = (int)(150 * scale);
+        // 横幅 150dp, 縦　100dp　に設定
         // xmlで書いてた詳細
         LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                buttonWidth, // 横幅
+                LinearLayout.LayoutParams.WRAP_CONTENT); // 縦幅
+
+        // マージン　20dp に設定
+        int margins = (int)(20 * scale);
+        buttonLayoutParams.setMargins(margins,margins,margins,margins);
 
         button.setLayoutParams(buttonLayoutParams);
         layout.addView(button);
