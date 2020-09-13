@@ -15,6 +15,14 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private boolean flag = false;
+    private Button button;
+    private LinearLayout.LayoutParams buttonLayoutParams;
+    private float scale;
+    private int buttonWidth;
+    private int margins;
+
+    int mParent = LinearLayout.LayoutParams.MATCH_PARENT;
+    int wContent = LinearLayout.LayoutParams.WRAP_CONTENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         layout.setOrientation(LinearLayout.VERTICAL);
         // Layoutの横・縦幅の指定
         layout.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT));
+                mParent, mParent));
 
         // レイアウト中央寄せ
         layout.setGravity(Gravity.CENTER);
 
         setContentView(layout); // 作成した動的なlayoutインスタンスをviewメソッドに設定
+        
 
         // テキスト設定
         textView = new TextView(this); // インスタンス作成
@@ -48,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // xmlで書いてた詳細
         // text用のlayoutインスタンスの作成
         LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                wContent, wContent);
 
         textView.setLayoutParams(textLayoutParams); // 作成したtext用layoutインスタンスを設定
         layout.addView(textView);
@@ -81,12 +88,17 @@ public class MainActivity extends AppCompatActivity {
                 // flagがtrueの時
                 if (flag) {
                     textView.setText(R.string.hello);
+                    // 追加
+                    mode1();
                     flag = false;
                 }
                 // flagがfalseの時
                 else {
                     textView.setText(R.string.world);
+                    // 追加
+                    mode2();
                     flag = true;
+
                 }
             }
         });
@@ -115,4 +127,28 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
     }
+
+    // 追加
+    private void mode1(){
+        buttonWidth = (int)(150 * scale);
+        // 横幅 150dp に設定
+        buttonLayoutParams = new LinearLayout.LayoutParams(
+                buttonWidth, wContent);
+        buttonLayoutParams.setMargins(margins, margins, margins, margins);
+
+        button.setLayoutParams(buttonLayoutParams);
+    }
+    private void mode2(){
+
+        buttonWidth = (int)(250 * scale);
+        int buttonHeight = (int)(100 * scale);
+        // 横幅 250dp に設定
+        buttonLayoutParams = new LinearLayout.LayoutParams(
+                buttonWidth, buttonHeight);
+        buttonLayoutParams.setMargins((int) (5 * scale), (int)(50 * scale),
+                (int)(50 * scale), (int)(20 * scale));
+
+        button.setLayoutParams(buttonLayoutParams);
+    }
+
 }
